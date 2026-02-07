@@ -11,6 +11,7 @@ import jakarta.ws.rs.core.Response;
 import java.util.UUID;
 
 import java.util.List;
+import java.util.Map;
 
 @ApplicationScoped
 public class RawMaterialService {
@@ -34,8 +35,18 @@ public class RawMaterialService {
     return Response.ok(rawMaterial).build();
   }
 
-  public RawMaterialEntity findById(UUID id) {
-    return rawmaterialRepository.findById(id);
+  public Response findById(UUID id) {
+    RawMaterialEntity rawMaterial = rawmaterialRepository.findById(id);
+
+    if (rawMaterial == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Material não encontrado"))
+          .build();
+    }
+
+    return Response.ok(rawMaterial).build();
   }
 
   @Transactional

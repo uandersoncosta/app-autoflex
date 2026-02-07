@@ -35,13 +35,8 @@ public class RawMaterialResource {
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") UUID id) {
-        RawMaterialEntity material = rawMaterialService.findById(id);
-
-        if (material == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        return Response.ok(material).build();
+        var rawMaterial = rawMaterialService.findById(id);
+        return Response.ok(rawMaterial).build();
     }
 
     @PUT
