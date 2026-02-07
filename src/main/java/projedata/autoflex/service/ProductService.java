@@ -40,6 +40,14 @@ public class ProductService {
     public Response findById(UUID id) {
         ProductEntity product = productrepository.findById(id);
 
+        if (product == null) {
+            return Response.status(Response.Status.NOT_FOUND)
+                    .entity(Map.of(
+                            "status", 404,
+                            "erro", "Produto não encontrado"))
+                    .build();
+        }
+
         return Response.ok(product).build();
     }
 

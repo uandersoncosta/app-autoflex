@@ -28,21 +28,18 @@ public class ProductResource {
 
     // READ ALL
     @GET
-    public List<ProductEntity> findAll() {
-        return service.findAll();
+    public Response findAll() {
+        var products = service.findAll();
+        return products;
     }
 
     // READ BY ID
     @GET
     @Path("/{id}")
     public Response findById(@PathParam("id") UUID id) {
-        ProductEntity product = service.findById(id);
+        var product = service.findById(id);
 
-        if (product == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        return Response.ok(product).build();
+        return product;
     }
 
     // UPDATE
