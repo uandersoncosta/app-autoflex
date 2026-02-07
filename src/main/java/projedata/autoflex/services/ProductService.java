@@ -5,6 +5,7 @@ import projedata.autoflex.repository.IProductRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class ProductService {
         return productrepository.listAll();
     }
 
-    public ProductEntity findById(Long id) {
+    public ProductEntity findById(UUID id) {
         return productrepository.findById(id);
     }
 
     @Transactional
-    public ProductEntity update(Long id, ProductEntity data) {
+    public ProductEntity update(UUID id, ProductEntity data) {
         ProductEntity product = productrepository.findById(id);
         if (product == null) return null;
         
@@ -40,7 +41,7 @@ public class ProductService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(UUID id) {
         productrepository.deleteById(id);
     }
 }

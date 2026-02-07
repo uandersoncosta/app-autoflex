@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -30,7 +31,7 @@ public class RawMaterialResource {
 
     @GET
     @Path("/{id}")
-    public Response findById(@PathParam("id") Long id) {
+    public Response findById(@PathParam("id") UUID id) {
         RawMaterialEntity material = service.findById(id);
 
         if (material == null) {
@@ -42,7 +43,7 @@ public class RawMaterialResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, RawMaterialEntity material) {
+    public Response update(@PathParam("id") UUID id, RawMaterialEntity material) {
         RawMaterialEntity updated = service.update(id, material);
 
         if (updated == null) {
@@ -54,7 +55,7 @@ public class RawMaterialResource {
 
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") UUID id) {
         service.delete(id);
         return Response.noContent().build();
     }

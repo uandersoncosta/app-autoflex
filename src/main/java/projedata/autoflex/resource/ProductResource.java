@@ -6,6 +6,7 @@ import jakarta.inject.Inject;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -33,7 +34,7 @@ public class ProductResource {
     // READ BY ID
     @GET
     @Path("/{id}")
-    public Response findById(@PathParam("id") Long id) {
+    public Response findById(@PathParam("id") UUID id) {
         ProductEntity product = service.findById(id);
 
         if (product == null) {
@@ -46,7 +47,7 @@ public class ProductResource {
     // UPDATE
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") Long id, ProductEntity product) {
+    public Response update(@PathParam("id") UUID id, ProductEntity product) {
         ProductEntity updated = service.update(id, product);
 
         if (updated == null) {
@@ -59,7 +60,7 @@ public class ProductResource {
     // DELETE
     @DELETE
     @Path("/{id}")
-    public Response delete(@PathParam("id") Long id) {
+    public Response delete(@PathParam("id") UUID id) {
         service.delete(id);
         return Response.noContent().build();
     }

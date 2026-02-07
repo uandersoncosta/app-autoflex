@@ -5,6 +5,7 @@ import projedata.autoflex.repository.IRawMaterialRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import java.util.UUID;
 
 import java.util.List;
 
@@ -24,12 +25,12 @@ public class RawMaterialService {
         return rawmaterialrepository.listAll();
     }
 
-    public RawMaterialEntity findById(Long id) {
+    public RawMaterialEntity findById(UUID id) {
         return rawmaterialrepository.findById(id);
     }
 
     @Transactional
-    public RawMaterialEntity update(Long id, RawMaterialEntity data) {
+    public RawMaterialEntity update(UUID id, RawMaterialEntity data) {
         RawMaterialEntity material = rawmaterialrepository.findById(id);
 
         if (material == null) return null;
@@ -41,7 +42,7 @@ public class RawMaterialService {
     }
 
     @Transactional
-    public void delete(Long id) {
+    public void delete(UUID id) {
         rawmaterialrepository.deleteById(id);
     }
 }
