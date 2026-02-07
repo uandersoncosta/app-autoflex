@@ -17,54 +17,60 @@ import java.util.Map;
 @ApplicationScoped
 public class ProductService {
 
-    @Inject
-    IProductRepository productrepository;
+  @Inject
+  IProductRepository productrepository;
 
-    @Transactional
-    public Response create(ProductDTO productdto) {
-        ProductEntity product = new ProductEntity();
+  @Transactional
+  public Response create(ProductDTO productdto) {
+    ProductEntity product = new ProductEntity();
 
-        product.name = productdto.name;
-        product.price = productdto.price;
+    product.name = productdto.name;
+    product.price = productdto.price;
 
-        productrepository.persist(product);
+    productrepository.persist(product);
 
-        return Response.status(Response.Status.CREATED).entity(product).build();
+    return Response.status(Response.Status.CREATED).entity(product).build();
+  }
+
+  public Response findAll() {
+    List<ProductEntity> products = productrepository.listAll();
+    return Response.ok(products).build();
+  }
+
+  public Response findById(UUID id) {
+    ProductEntity product = productrepository.findById(id);
+
+    if (product == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Produto não encontrado"))
+          .build();
     }
 
-    public Response findAll() {
-        List<ProductEntity> products = productrepository.listAll();
-        return Response.ok(products).build();
+    return Response.ok(product).build();
+  }
+
+  @Transactional
+  public Response update(UUID id, ProductDTO productdto) {
+    var product = productrepository.findById(id);
+
+    if (product == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Produto não encontrado"))
+          .build();
     }
 
-    public Response findById(UUID id) {
-        ProductEntity product = productrepository.findById(id);
+    product.name = productdto.name;
+    product.price = productdto.price;
 
-        if (product == null) {
-            return Response.status(Response.Status.NOT_FOUND)
-                    .entity(Map.of(
-                            "status", 404,
-                            "erro", "Produto não encontrado"))
-                    .build();
-        }
+    return Response.ok(product).build();
+  }
 
-        return Response.ok(product).build();
-    }
-
-    @Transactional
-    public ProductEntity update(UUID id, ProductEntity data) {
-        ProductEntity product = productrepository.findById(id);
-        if (product == null)
-            return null;
-
-        product.name = data.name;
-        product.price = data.price;
-
-        return product;
-    }
-
-    @Transactional
-    public void delete(UUID id) {
-        productrepository.deleteById(id);
-    }
+  @Transactional
+  public void delete(UUID id) {
+    productrepository.deleteById(id);
+  }
 }
