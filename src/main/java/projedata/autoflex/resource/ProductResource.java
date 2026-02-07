@@ -1,8 +1,10 @@
 package projedata.autoflex.resource;
 
 import projedata.autoflex.entity.ProductEntity;
+import projedata.autoflex.dto.ProductDTO;
 import projedata.autoflex.service.ProductService;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -18,11 +20,10 @@ public class ProductResource {
     @Inject
     ProductService service;
 
-    // CREATE
     @POST
-    public Response create(ProductEntity product) {
-        ProductEntity created = service.create(product);
-        return Response.status(Response.Status.CREATED).entity(created).build();
+    public Response create(@Valid ProductDTO productdto) {
+        var created = service.create(productdto);
+        return created;
     }
 
     // READ ALL
