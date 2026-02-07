@@ -15,43 +15,44 @@ import java.util.List;
 @ApplicationScoped
 public class RawMaterialService {
 
-    @Inject
-    IRawMaterialRepository rawmaterialRepository;
+  @Inject
+  IRawMaterialRepository rawmaterialRepository;
 
-    @Transactional
-    public Response create(RawMaterialDTO rawmaterialDTO) {
-        RawMaterialEntity rawMaterialEntity = new RawMaterialEntity();
+  @Transactional
+  public Response create(RawMaterialDTO rawmaterialDTO) {
+    RawMaterialEntity rawMaterialEntity = new RawMaterialEntity();
 
-        rawMaterialEntity.name = rawmaterialDTO.name;
-        rawMaterialEntity.stockQuantity = rawmaterialDTO.stockQuantity;
+    rawMaterialEntity.name = rawmaterialDTO.name;
+    rawMaterialEntity.stockQuantity = rawmaterialDTO.stockQuantity;
 
-        rawmaterialRepository.persist(rawMaterialEntity);
-        return Response.status(Response.Status.CREATED).entity(rawMaterialEntity).build();
-    }
+    rawmaterialRepository.persist(rawMaterialEntity);
+    return Response.status(Response.Status.CREATED).entity(rawMaterialEntity).build();
+  }
 
-    public List<RawMaterialEntity> findAll() {
-        return rawmaterialRepository.listAll();
-    }
+  public Response findAll() {
+    List<RawMaterialEntity> rawMaterial = rawmaterialRepository.listAll();
+    return Response.ok(rawMaterial).build();
+  }
 
-    public RawMaterialEntity findById(UUID id) {
-        return rawmaterialRepository.findById(id);
-    }
+  public RawMaterialEntity findById(UUID id) {
+    return rawmaterialRepository.findById(id);
+  }
 
-    @Transactional
-    public RawMaterialEntity update(UUID id, RawMaterialEntity data) {
-        RawMaterialEntity material = rawmaterialRepository.findById(id);
+  @Transactional
+  public RawMaterialEntity update(UUID id, RawMaterialEntity data) {
+    RawMaterialEntity material = rawmaterialRepository.findById(id);
 
-        if (material == null)
-            return null;
+    if (material == null)
+      return null;
 
-        material.name = data.name;
-        material.stockQuantity = data.stockQuantity;
+    material.name = data.name;
+    material.stockQuantity = data.stockQuantity;
 
-        return material;
-    }
+    return material;
+  }
 
-    @Transactional
-    public void delete(UUID id) {
-        rawmaterialRepository.deleteById(id);
-    }
+  @Transactional
+  public void delete(UUID id) {
+    rawmaterialRepository.deleteById(id);
+  }
 }
