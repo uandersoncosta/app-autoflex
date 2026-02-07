@@ -32,8 +32,7 @@ public class ProductService {
     public ProductEntity update(Long id, ProductEntity data) {
         ProductEntity product = productrepository.findById(id);
         if (product == null) return null;
-
-        product.code = data.code;
+        
         product.name = data.name;
         product.price = data.price;
 

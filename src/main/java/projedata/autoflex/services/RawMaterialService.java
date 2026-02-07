@@ -33,8 +33,7 @@ public class RawMaterialService {
         RawMaterialEntity material = rawmaterialrepository.findById(id);
 
         if (material == null) return null;
-
-        material.code = data.code;
+        
         material.name = data.name;
         material.stockQuantity = data.stockQuantity;
 
