@@ -50,20 +50,35 @@ public class RawMaterialService {
   }
 
   @Transactional
-  public RawMaterialEntity update(UUID id, RawMaterialEntity data) {
-    RawMaterialEntity material = rawmaterialRepository.findById(id);
+  public Response update(UUID id, RawMaterialDTO rawMaterialDTO) {
+    var rawMaterial = rawmaterialRepository.findById(id);
 
-    if (material == null)
-      return null;
+    if (rawMaterialDTO == null) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Produto não encontrado"))
+          .build();
+    }
 
-    material.name = data.name;
-    material.stockQuantity = data.stockQuantity;
+    rawMaterial.name = rawMaterialDTO.name;
+    rawMaterial.stockQuantity = rawMaterialDTO.stockQuantity;
 
-    return material;
+    return Response.ok(rawMaterial).build();
   }
 
   @Transactional
-  public void delete(UUID id) {
-    rawmaterialRepository.deleteById(id);
+  public Response delete(UUID id) {
+    boolean rawMaterialDeleted = rawmaterialRepository.deleteById(id);
+
+    if (!rawMaterialDeleted) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Produto não encontrado"))
+          .build();
+    }
+
+    return Response.noContent().build();
   }
 }

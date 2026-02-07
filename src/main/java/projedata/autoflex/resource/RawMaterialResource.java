@@ -1,7 +1,6 @@
 package projedata.autoflex.resource;
 
 import projedata.autoflex.dto.RawMaterialDTO;
-import projedata.autoflex.entity.RawMaterialEntity;
 import projedata.autoflex.service.RawMaterialService;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
@@ -9,8 +8,6 @@ import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.UUID;
-
-import java.util.List;
 
 @Path("/raw-materials")
 @Consumes(MediaType.APPLICATION_JSON)
@@ -41,20 +38,15 @@ public class RawMaterialResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") UUID id, RawMaterialEntity material) {
-        RawMaterialEntity updated = rawMaterialService.update(id, material);
-
-        if (updated == null) {
-            return Response.status(Response.Status.NOT_FOUND).build();
-        }
-
-        return Response.ok(updated).build();
+    public Response update(@PathParam("id") UUID id, @Valid RawMaterialDTO rawMaterialDTO) {
+        var rawMaterial = rawMaterialService.update(id, rawMaterialDTO);
+        return rawMaterial;
     }
 
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") UUID id) {
-        rawMaterialService.delete(id);
-        return Response.noContent().build();
+        var rawMaterial = rawMaterialService.delete(id);
+        return rawMaterial;
     }
 }
