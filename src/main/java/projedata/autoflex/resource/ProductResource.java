@@ -9,7 +9,6 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.UUID;
 
-
 @Path("/products")
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
@@ -39,7 +38,7 @@ public class ProductResource {
 
     @PUT
     @Path("/{id}")
-    public Response update(@PathParam("id") UUID id, ProductDTO productDTO) {
+    public Response update(@PathParam("id") UUID id, @Valid ProductDTO productDTO) {
         var product = service.update(id, productDTO);
         return product;
     }
