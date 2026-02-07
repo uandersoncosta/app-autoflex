@@ -5,5 +5,5 @@ import jakarta.enterprise.context.ApplicationScoped;
 import projedata.autoflex.entity.ProductEntity;
 
 @ApplicationScoped
-public class ProductRepository implements PanacheRepository<ProductEntity> {
+public class IProductRepository implements PanacheRepository<ProductEntity> {
 }
