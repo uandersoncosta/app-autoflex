@@ -68,7 +68,17 @@ public class ProductService {
   }
 
   @Transactional
-  public void delete(UUID id) {
-    productrepository.deleteById(id);
+  public Response delete(UUID id) {
+    boolean deleted = productrepository.deleteById(id);
+
+    if (!deleted) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Produto não encontrado"))
+          .build();
+    }
+  
+    return Response.noContent().build();
   }
 }

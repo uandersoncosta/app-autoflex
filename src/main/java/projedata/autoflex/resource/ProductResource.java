@@ -46,7 +46,7 @@ public class ProductResource {
     @DELETE
     @Path("/{id}")
     public Response delete(@PathParam("id") UUID id) {
-        service.delete(id);
-        return Response.noContent().build();
+        var product = service.delete(id);
+        return product;
     }
 }
