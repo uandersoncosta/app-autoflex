@@ -1,10 +1,13 @@
 package projedata.autoflex.service;
 
+import projedata.autoflex.dto.RawMaterialDTO;
 import projedata.autoflex.entity.RawMaterialEntity;
 import projedata.autoflex.repository.IRawMaterialRepository;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
+import jakarta.ws.rs.core.Response;
+
 import java.util.UUID;
 
 import java.util.List;
@@ -13,28 +16,34 @@ import java.util.List;
 public class RawMaterialService {
 
     @Inject
-    IRawMaterialRepository rawmaterialrepository;
+    IRawMaterialRepository rawmaterialRepository;
 
     @Transactional
-    public RawMaterialEntity create(RawMaterialEntity material) {
-        rawmaterialrepository.persist(material);
-        return material;
+    public Response create(RawMaterialDTO rawmaterialDTO) {
+        RawMaterialEntity rawMaterialEntity = new RawMaterialEntity();
+
+        rawMaterialEntity.name = rawmaterialDTO.name;
+        rawMaterialEntity.stockQuantity = rawmaterialDTO.stockQuantity;
+
+        rawmaterialRepository.persist(rawMaterialEntity);
+        return Response.status(Response.Status.CREATED).entity(rawMaterialEntity).build();
     }
 
     public List<RawMaterialEntity> findAll() {
-        return rawmaterialrepository.listAll();
+        return rawmaterialRepository.listAll();
     }
 
     public RawMaterialEntity findById(UUID id) {
-        return rawmaterialrepository.findById(id);
+        return rawmaterialRepository.findById(id);
     }
 
     @Transactional
     public RawMaterialEntity update(UUID id, RawMaterialEntity data) {
-        RawMaterialEntity material = rawmaterialrepository.findById(id);
+        RawMaterialEntity material = rawmaterialRepository.findById(id);
 
-        if (material == null) return null;
-        
+        if (material == null)
+            return null;
+
         material.name = data.name;
         material.stockQuantity = data.stockQuantity;
 
@@ -43,6 +52,6 @@ public class RawMaterialService {
 
     @Transactional
     public void delete(UUID id) {
-        rawmaterialrepository.deleteById(id);
+        rawmaterialRepository.deleteById(id);
     }
 }
