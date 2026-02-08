@@ -1,6 +1,8 @@
 package projedata.autoflex.entity;
 
 import jakarta.persistence.*;
+
+import java.math.BigDecimal;
 import java.util.UUID;
 
 @Entity
@@ -15,5 +17,5 @@ public class RawMaterialEntity {
     public String name;
 
     @Column(nullable = false)
-    public Double stockQuantity;
+    public BigDecimal stockQuantity;
 }
