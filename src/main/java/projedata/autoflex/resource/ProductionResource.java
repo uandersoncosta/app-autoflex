@@ -6,7 +6,7 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import projedata.autoflex.service.ProductionService;
 
-@Path("api/autoflex/v1/production")
+@Path("/api/autoflex/v1/production")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
 public class ProductionResource {

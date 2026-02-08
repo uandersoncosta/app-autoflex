@@ -2,6 +2,7 @@ package projedata.autoflex.resource;
 
 import projedata.autoflex.dto.ProductDTO;
 import projedata.autoflex.service.ProductService;
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.*;
@@ -9,7 +10,8 @@ import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import java.util.UUID;
 
-@Path("api/autoflex/v1/products")
+@Path("/api/autoflex/v1/products")
+@PermitAll
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductResource {

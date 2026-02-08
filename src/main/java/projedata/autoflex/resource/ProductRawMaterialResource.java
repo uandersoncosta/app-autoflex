@@ -2,6 +2,7 @@ package projedata.autoflex.resource;
 
 import java.util.UUID;
 
+import jakarta.annotation.security.PermitAll;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
@@ -17,7 +18,8 @@ import jakarta.ws.rs.core.Response;
 import projedata.autoflex.dto.ProductRawMaterialDTO;
 import projedata.autoflex.service.ProductRawMaterialService;
 
-@Path("api/autoflex/v1/product-raw-material")
+@Path("/api/autoflex/v1/product-raw-material")
+@PermitAll
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductRawMaterialResource {
