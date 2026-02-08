@@ -3,6 +3,7 @@ package projedata.autoflex.resource;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.Produces;
@@ -18,6 +19,12 @@ public class ProductRawMaterialResource {
 
   @Inject()
   ProductRawMaterialService productRawMaterialService;
+
+  @GET
+  public Response findAll() {
+    var productRawMaterial = productRawMaterialService.findAll();
+    return productRawMaterial;
+  }
 
   @POST
   public Response create(@Valid ProductRawMaterialDTO productRawMaterialDTO) {

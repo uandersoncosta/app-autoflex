@@ -1,5 +1,6 @@
 package projedata.autoflex.service;
 
+import java.util.List;
 import java.util.Map;
 
 import jakarta.enterprise.context.ApplicationScoped;
@@ -22,6 +23,12 @@ public class ProductRawMaterialService {
 
   @Inject
   IRawMaterialRepository rawMaterialRepository;
+
+  public Response findAll() {
+    List<ProductRawMaterialEntity> productRawMaterial = productRawMaterialRepository.listAll();
+
+    return Response.ok(productRawMaterial).build();
+  }
 
   @Transactional
   public Response create(ProductRawMaterialDTO productRawMaterialDTO) {
@@ -54,4 +61,46 @@ public class ProductRawMaterialService {
 
     return Response.status(Response.Status.CREATED).entity(product).build();
   }
+
+  // @Transactional
+  // public ProductRawMaterialDTO update(UUID id, ProductRawMaterialDTO dto) {
+  // ProductRawMaterial entity = repository.findById(id)
+  // .orElseThrow(() -> new NotFoundException("Association not found"));
+
+  // Product product = productRepository.findById(dto.getProductId())
+  // .orElseThrow(() -> new NotFoundException("Product not found"));
+
+  // RawMaterial rawMaterial =
+  // rawMaterialRepository.findById(dto.getRawMaterialId())
+  // .orElseThrow(() -> new NotFoundException("Raw material not found"));
+
+  // entity.setProduct(product);
+  // entity.setRawMaterial(rawMaterial);
+  // entity.setQuantityRequired(dto.getQuantityRequired());
+
+  // repository.persist(entity);
+
+  // dto.setId(entity.getId());
+  // return dto;
+  // }
+
+  // @Transactional
+  // public void delete(UUID id) {
+  // ProductRawMaterial entity = repository.findById(id)
+  // .orElseThrow(() -> new NotFoundException("Association not found"));
+
+  // repository.delete(entity);
+  // }
+
+  // public ProductRawMaterialDTO findById(UUID id) {
+  // ProductRawMaterial entity = repository.findById(id)
+  // .orElseThrow(() -> new NotFoundException("Association not found"));
+
+  // ProductRawMaterialDTO dto = new ProductRawMaterialDTO();
+  // dto.setId(entity.getId());
+  // dto.setProductId(entity.getProduct().getId());
+  // dto.setRawMaterialId(entity.getRawMaterial().getId());
+  // dto.setQuantityRequired(entity.getQuantityRequired());
+  // return dto;
+  // }
 }

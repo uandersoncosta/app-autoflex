@@ -14,39 +14,39 @@ import java.util.UUID;
 @Produces(MediaType.APPLICATION_JSON)
 public class ProductResource {
 
-    @Inject
-    ProductService service;
+  @Inject
+  ProductService service;
 
-    @POST
-    public Response create(@Valid ProductDTO productdto) {
-        var product = service.create(productdto);
-        return product;
-    }
+  @POST
+  public Response create(@Valid ProductDTO productdto) {
+    var product = service.create(productdto);
+    return product;
+  }
 
-    @GET
-    public Response findAll() {
-        var products = service.findAll();
-        return products;
-    }
+  @GET
+  public Response findAll() {
+    var products = service.findAll();
+    return products;
+  }
 
-    @GET
-    @Path("/{id}")
-    public Response findById(@PathParam("id") UUID id) {
-        var product = service.findById(id);
-        return product;
-    }
+  @GET
+  @Path("/{id}")
+  public Response findById(@PathParam("id") UUID id) {
+    var product = service.findById(id);
+    return product;
+  }
 
-    @PUT
-    @Path("/{id}")
-    public Response update(@PathParam("id") UUID id, @Valid ProductDTO productDTO) {
-        var product = service.update(id, productDTO);
-        return product;
-    }
+  @PUT
+  @Path("/{id}")
+  public Response update(@PathParam("id") UUID id, @Valid ProductDTO productDTO) {
+    var product = service.update(id, productDTO);
+    return product;
+  }
 
-    @DELETE
-    @Path("/{id}")
-    public Response delete(@PathParam("id") UUID id) {
-        var product = service.delete(id);
-        return product;
-    }
+  @DELETE
+  @Path("/{id}")
+  public Response delete(@PathParam("id") UUID id) {
+    var product = service.delete(id);
+    return product;
+  }
 }
