@@ -111,12 +111,19 @@ public class ProductRawMaterialService {
     return Response.ok(product).build();
   }
 
-  // @Transactional
-  // public void delete(UUID id) {
-  // ProductRawMaterial entity = repository.findById(id)
-  // .orElseThrow(() -> new NotFoundException("Association not found"));
+  @Transactional
+  public Response delete(UUID id) {
+    boolean productRawMaterial = productRawMaterialRepository.deleteById(id);
 
-  // repository.delete(entity);
-  // }
+    if (!productRawMaterial) {
+      return Response.status(Response.Status.NOT_FOUND)
+          .entity(Map.of(
+              "status", 404,
+              "erro", "Produto não encontrado"))
+          .build();
+    }
+
+    return Response.noContent().build();
+  }
 
 }

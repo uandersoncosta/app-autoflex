@@ -5,6 +5,7 @@ import java.util.UUID;
 import jakarta.inject.Inject;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.PUT;
@@ -47,6 +48,13 @@ public class ProductRawMaterialResource {
   @Path("/{id}")
   public Response update(@PathParam("id") UUID id, @Valid ProductRawMaterialDTO productRawMaterialDTO) {
     var productRawMaterial = productRawMaterialService.update(id, productRawMaterialDTO);
+    return productRawMaterial;
+  }
+
+  @DELETE
+  @Path("/{id}")
+  public Response delete(@PathParam("id") UUID id) {
+    var productRawMaterial = productRawMaterialService.delete(id);
     return productRawMaterial;
   }
 }
