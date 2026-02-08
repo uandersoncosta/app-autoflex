@@ -17,6 +17,7 @@ public class ProductionResource {
   @GET
   @Path("/suggestions")
   public Response getSuggestions() {
-    return Response.ok(productionService.getProductionSuggestions()).build();
+    var suggestion = productionService.getProductionSuggestions();
+    return suggestion;
   }
 }
